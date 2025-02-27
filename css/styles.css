@@ -5,7 +5,7 @@
   right: 0;
   height: 100%;
   width: 100%;
-  background-color: #111827;
+  background: linear-gradient(#ecfbf4,#b3e3bd);
 }
 
 .my-extension-header {
@@ -13,8 +13,8 @@
     top: 0;
     left: 0;
     right: 0;
-    background-color: #111827;
-    color: white;
+    background: #ecfbf4;
+    color: black;
     padding: 8px;
     display: flex;
     justify-content: end;
@@ -41,11 +41,11 @@
     left: 0;
     top: 25px;
     bottom: 120px;
-    background-color: #111827;
+    background: linear-gradient(#ecfbf4,#b3e3bd);
     overflow-x: auto; 
     overflow-y: auto; 
     line-height: 1.6;
-    color: white;
+    color: black;
 }
 
 .my-extension-content h1 {
@@ -75,7 +75,7 @@
 }
 
 .my-extension-content a {
-  color: white;
+  color: black;
   text-decoration: underline;
   font-weight: bold;
 }
@@ -102,13 +102,13 @@
 .my-extension-content li {
   display: list-item;
   padding-left: 5px;
-  color: white;
+  color: black;
   font-size: 15px;
 }
 
 .my-extension-content pre, .my-extension-content code {
-  background-color: #282c34;
-  color: #fff;
+  background: #b4e9bf;
+  color: #000;
   overflow-x: auto;
   max-width: 100%;
   word-wrap: break-word;
@@ -122,7 +122,7 @@
 .my-extension-content p {
   font-size: 15px;
   line-height: 1.6;
-  color: white;
+  color: black;
 }
 
 .my-extension-dialogue {
@@ -133,8 +133,8 @@
   display: flex;
   align-items: center;
   padding: 5px 10px;
-  background-color: #111827;
-  border-top: 1px solid #111827;
+  background: #b4e9bf;
+  border-top: 1px solid #ecfbf4;
   box-sizing: border-box;
 }
 
@@ -142,21 +142,21 @@
   flex-grow: 1;
   padding: 15px;
   margin-right: 5px;
-  border: 1px solid #3C3C3C;
-  background-color: #111827;
-  color: white;
+  border: 1px solid #ecfbf4;
+  background: white;
+  color: black;
   font-size: 15px;
   border-radius: 5px;
   resize: none; /* 禁止用户手动调整大小 */
 }
 
 .my-extension-dialogue-submit, .my-extension-dialogue-generate {
-  padding: 5px;
-  background-color: #3C3C3C;
+  padding: 2px;
+  background: #00b278;
   color: white;
   cursor: pointer;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   margin-left: 5px;
 }
 
@@ -165,6 +165,8 @@
 }
 
 .my-extension-dialogue-generate {
+  border-radius: 4px;
+  color: red;
   display: none;
 }
 
@@ -193,7 +195,7 @@
     display: none;
     z-index: 100000;
     padding: 10px 20px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: #00b278;
     color: white;
     border-radius: 5px;
     font-size: 14px;
@@ -237,8 +239,8 @@
 }
 
 .feature-item {
-  background-color: #2c2f33;
-  color: white;
+  background: #b4e9bf;
+  color: black;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -284,7 +286,7 @@
   justify-content: start;
   align-items: center;
   padding: 10px;
-  background-color: #111827;
+  background: #b4e9bf;
 }
 
 .navigation-bar > div {
@@ -295,8 +297,8 @@
   padding: 5px 10px;
   border: 1px solid #3C3C3C;
   border-radius: 5px;
-  background-color: #111827;
-  color: white;
+  background: #b4e9bf;
+  color: black;
   width: 150px;
   white-space: nowrap;
   overflow: hidden;
@@ -309,7 +311,7 @@
   align-items: center;
   padding: 5px;
   border-radius: 5px;
-  background-color: #7c7a7a;
+  background: white;
 }
 
 #newChat-div {
@@ -327,7 +329,7 @@
 }
 
 .icon-copy:hover {
-  color: white;
+  color: black;
 }
 
 .image-preview-area {
@@ -338,7 +340,7 @@
   left: 0;
   right: 0;
   padding: 0px 10px;
-  background-color: #111827;
+  background: #b4e9bf;
   z-index: 1000;
 }
 
@@ -378,8 +380,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  color: black;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -389,14 +391,14 @@
 .shortcut-menu, .model-params, .tool-store {
   display: none;
   position: fixed;
-  background-color: #111827;
+  background: #b4e9bf;
   border: 1px solid #3C3C3C;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   width: 200px;
   left: 10px;
   bottom: 115px;
-  color: white;
+  color: black;
 }
 .shortcut-menu div {
   padding: 8px 16px;
@@ -405,7 +407,7 @@
   align-items: center;
 }
 .shortcut-menu div:hover {
-  background-color: #3C3C3C;
+  background: #3C3C3C;
 }
 
 .shortcut-menu svg {
@@ -450,7 +452,7 @@
 .params-item input[type="number"] {
   width: 50px;
   text-align: center;
-  background-color: #f5f5f5;
+  background: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
@@ -500,7 +502,7 @@
 }
 
 .tool-item input[type="checkbox"]:checked {
-  background-color: #28a745;
+  background: #28a745;
   border-color: #28a745;
 }
 
@@ -508,7 +510,7 @@
   content: '✔';
   display: block;
   text-align: center;
-  color: white;
+  color: black;
   font-size: 14px;
 }
 
@@ -529,7 +531,7 @@
   position: relative;
   align-self: flex-end;
   color: #28a745;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 10px 0;
   display: block;
@@ -560,8 +562,8 @@
 .save-message-btn, .cancel-message-btn {
   margin-left: 10px;
   padding: 5px 10px;
-  background-color: #3C3C3C;
-  color: white;
+  background: #3C3C3C;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -572,8 +574,8 @@
   min-height: 100px;
   margin-bottom: 10px;
   padding: 5px;
-  background-color: #111827;
-  color: white;
+  background: linear-gradient(#ecfbf4,#b3e3bd);
+  color: black;
   border: 1px solid #3C3C3C;
   border-radius: 5px;
 }
@@ -621,16 +623,16 @@
 }
 
 /* 同样处理弹出窗口中的公式 */
-#fisherai-transpop-id .katex-display,
-#fisherai-transpop-id .katex,
-#fisherai-transpop-id .katex-html {
+#ninebotai-transpop-id .katex-display,
+#ninebotai-transpop-id .katex,
+#ninebotai-transpop-id .katex-html {
     max-width: 100%;
     overflow-x: auto;
     white-space: normal !important;
 }
 
 /* 确保公式容器不会影响整体布局 */
-.chat-content, #fisherai-transpop-id {
+.chat-content, #ninebotai-transpop-id {
     overflow-x: hidden;
     word-wrap: break-word;
 }

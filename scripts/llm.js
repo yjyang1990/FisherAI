@@ -183,7 +183,7 @@ function createRequestParams(additionalHeaders, body) {
 async function chatWithLLM(model, inputText, base64Images, type) {
   var {baseUrl, apiKey} = await getBaseUrlAndApiKey(model);
 
-  if(!model.includes(FISHERAI_MODEL) && !model.includes(OLLAMA_MODEL)) {
+  if(!model.includes(NINEBOTAI_MODEL) && !model.includes(OLLAMA_MODEL)) {
     if(!baseUrl) {
       throw new Error('模型 ' + model + ' 的 API 代理地址为空，请检查！');
     }
@@ -211,7 +211,7 @@ async function chatWithLLM(model, inputText, base64Images, type) {
   }
 
   let result = { completeText: '', tools: [] };
-  if(model.includes(GEMINI_MODEL) && !model.includes(FISHERAI_MODEL)) {
+  if(model.includes(GEMINI_MODEL) && !model.includes(NINEBOTAI_MODEL)) {
     baseUrl = baseUrl.replace('{MODEL_NAME}', model).replace('{API_KEY}', apiKey);
     result = await chatWithGemini(baseUrl, model, type);
   } else {
@@ -354,15 +354,15 @@ async function parseFunctionCalling(result, baseUrl, apiKey, model, type) {
  * @returns 
  */
 async function chatWithOpenAIFormat(baseUrl, apiKey, modelName, type) {
-  let isFisherAI = false;
+  let isNineBotAI = false;
 
-  if(modelName.includes(FISHERAI_MODEL)) {
-    isFisherAI = true;
+  if(modelName.includes(NINEBOTAI_MODEL)) {
+    isNineBotAI = true;
   }
 
   let realModelName = modelName.replace(new RegExp(GROQ_MODEL_POSTFIX, 'g'), "")
                                 .replace(new RegExp(OLLAMA_MODEL_POSTFIX, 'g'), "")
-                                .replace(new RegExp(FISHERAI_MODEL_POSTFIX, 'g'), "");
+                                .replace(new RegExp(NINEBOTAI_MODEL_POSTFIX, 'g'), "");
   
   const { temperature, topP, maxTokens, frequencyPenalty, presencePenalty } = await getModelParameters();
 
@@ -413,10 +413,12 @@ async function chatWithOpenAIFormat(baseUrl, apiKey, modelName, type) {
     additionalHeaders = { 'api-key': apiKey };
   }
 
-  // FisherAI 模型需要特殊的认证头
-  if(isFisherAI) {
-    additionalHeaders = await generateFisherAIHeaders(FISHERAI_API_KEY, FISHERAI_API_SECRET, body);
+  // NineBotAI 模型需要特殊的认证头
+  if(isNineBotAI) {
+    // additionalHeaders = await generateNineBotAIHeaders(NINEBOTAI_API_KEY, NINEBOTAI_API_SECRET, body);
+    additionalHeaders = {'Authorization': 'Bearer ' + NINEBOTAI_API_KEY};
   }
+  
 
   const params = createRequestParams(additionalHeaders, body);
   console.log(baseUrl);
@@ -503,12 +505,13 @@ async function getModelParameters() {
 async function fetchAndHandleResponse(baseUrl, params, modelName, type) {
   let result = { resultString: '', resultArray: [] };
   try {
+    console.log(baseUrl, params);
     const response = await fetch(baseUrl, params);
 
     // 清除超时定时器
     clearTimeout(params.timeoutId);
 
-    // console.log(response);
+    console.log(response);
     if (!response.ok) {
       // 错误响应
       const errorJson = await response.json();
@@ -757,7 +760,7 @@ async function parseAndUpdateChatContent(response, modelName, type) {
             // console.log('jsonText...', jsonText);
             const jsonData = JSON.parse(jsonText);
             let content = '';
-            if(modelName.includes(GEMINI_MODEL) && !modelName.includes(FISHERAI_MODEL)) {
+            if(modelName.includes(GEMINI_MODEL) && !modelName.includes(NINEBOTAI_MODEL)) {
               jsonData.candidates[0].content.parts.forEach(part => {
                 // 检查 content 字段
                 if(part.text !== undefined &&  part.text != null) {
@@ -863,9 +866,9 @@ function updateChatContent(completeText, type) {
 
   } else if(type == HUACI_TRANS_TYPE) {
     // popup
-    const translationPopup = document.querySelector('#fisherai-transpop-id');
+    const translationPopup = document.querySelector('#ninebotai-transpop-id');
     translationPopup.style.display = 'block';  
-    const button = document.querySelector('#fisherai-button-id');
+    const button = document.querySelector('#ninebotai-button-id');
     button.style.display = 'none';
 
     // shown

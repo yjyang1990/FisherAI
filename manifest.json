@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "FisherAI - Your Best Summary Copilot, Supporting ChatGPT & Gemini",
-    "version": "1.1.22",
-    "description": "Your Best Summary Copilot",
+    "name": "NineBotAI - 免费智能助手, DeepSeek & ChatGPT & Gemini",
+    "version": "1.0.0",
+    "description": "免费智能助手",
     "icons": {
       "16": "images/logo_16.png",
       "32": "images/logo_32.png",
@@ -14,7 +14,7 @@
     ],
     "action": {
         "default_popup": "",
-        "default_title": "FisherAI",
+        "default_title": "NineBotAI",
         "default_icon": {
           "16": "images/logo_16.png",
           "32": "images/logo_32.png",

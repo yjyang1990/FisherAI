@@ -34,7 +34,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
 chrome.runtime.onInstalled.addListener(function() {
   chrome.contextMenus.create({
     id: "mainMenu",
-    title: "FisherAI",
+    title: "NineBotAI",
     contexts: ["all"]
   });
   

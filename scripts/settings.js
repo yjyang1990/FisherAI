@@ -348,25 +348,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 保存快捷翻译配置
-  const quickTransBtn = document.querySelector('.quicktrans-save-btn');
-  quickTransBtn.addEventListener('click', function() {
-    // 获取外层div的ID
-    var tabContent = this.closest('.tab-content');
-    var tabId = tabContent.id;
+  // const quickTransBtn = document.querySelector('.quicktrans-save-btn');
+  // quickTransBtn.addEventListener('click', function() {
+  //   // 获取外层div的ID
+  //   var tabContent = this.closest('.tab-content');
+  //   var tabId = tabContent.id;
 
-    // 是否开启快捷翻译
-    const toggleSwitch = document.getElementById('quickTransToggle');
-    const enabled = toggleSwitch.checked;
+  //   // 是否开启快捷翻译
+  //   const toggleSwitch = document.getElementById('quickTransToggle');
+  //   const enabled = toggleSwitch.checked;
 
-    // 模型选择
-    const modelSelection = document.querySelector('#model-select');
-    const selectedModel = modelSelection.value;
+  //   // 模型选择
+  //   const modelSelection = document.querySelector('#model-select');
+  //   const selectedModel = modelSelection.value;
 
-    // 保存KV & 显示保存成功
-    var quickTransDiv = document.querySelector('#quick-trans');
-    var saveMessage = quickTransDiv.querySelector('.save-message');
-    storeParams(tabId, enabled, selectedModel, saveMessage);
-  });
+  //   // 保存KV & 显示保存成功
+  //   var quickTransDiv = document.querySelector('#quick-trans');
+  //   var saveMessage = quickTransDiv.querySelector('.save-message');
+  //   storeParams(tabId, enabled, selectedModel, saveMessage);
+  // });
 
   // 加载Ollama模型到快捷翻译的选项中
   loadOllamaModelsForQuickTrans();

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>FisherAI</title>
+    <title>NineBotAI</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="stylesheet" type="text/css" href="/scripts/third/katex/katex.min.css">
     <script type="text/javascript" src="/scripts/third/marked.min.js"></script>
@@ -31,7 +31,7 @@
         </div>
         <div class="my-extension-content">
             <div class="my-extension-slogan">
-            <b>FisherAI</b> - Your Best Summary Copilot
+                <b>NineBotAI</b> - 免费智能助手
             </div>
             <div class="feature-container">
                 <div class="feature-title">功能推荐：</div>
@@ -88,35 +88,17 @@
             <div id="model-selection-div">
                 <select id="model-selection">
                     <optgroup label="免费模型">
-                        <option value="google/gemini-2.0-flash-exp:free-fisherai">gemini-2.0-flash-exp</option>
-                        <option value="deepseek/deepseek-r1:free-fisherai">deepseek-r1</option>
-                        <option value="google/gemini-2.0-flash-thinking-exp:free-fisherai">gemini-2.0-flash-thinking-exp</option>
-                        <option value="google/gemini-2.0-flash-lite-preview-02-05:free-fisherai">gemini-2.0-flash-lite</option>
+                        <option value="deepseek/deepseek-r1:free-ninebotai">deepseek-r1</option>
+                        <option value="deepseek/deepseek-chat:free-ninebotai">deepseek-chat</option>
+                        <option value="qwen/qwen2.5-vl-72b-instruct:free-ninebotai">qwen2.5</option>
+                        <option value="google/gemini-2.0-flash-thinking-exp:free-ninebotai">gemini-2.0</option>
+                        <option value="nvidia/llama-3.1-nemotron-70b-instruct:free-ninebotai">llama-3.1</option>
                     </optgroup>
                     <optgroup label="自定义配置模型" id="custom-models">
                         <option value="gpt-4o-mini">gpt-4o-mini</option>
                         <option value="gpt-4o">gpt-4o</option>
-                        <option value="chatgpt-4o-latest">chatgpt-4o-latest</option>
-                        <option value="gemini-1.5-flash-latest">gemini-1.5-flash-latest</option>
-                        <option value="gemini-1.5-pro-latest">gemini-1.5-pro-latest</option>
-                        <option value="gemini-2.0-flash-exp">gemini-2.0-flash-exp</option>
-                        <option value="gemini-2.0-flash-thinking-exp">gemini-2.0-flash-thinking-exp</option>
-                        <option value="gemini-exp-1206">gemini-exp-1206</option>
-                        <option value="deepseek-chat">deepseek-chat-v3</option>
-                        <option value="deepseek-reasoner">deepseek-reasoner</option>
-                        <option value="yi-lightning">yi-lightning</option>
-                        <option value="yi-vision-v2">yi-vision-v2</option>
-                        <option value="moonshot-v1-128k">moonshot-v1-128k</option>
-                        <option value="moonshot-v1-32k-vision-preview">moonshot-v1-32k-vision-preview</option>
-                        <option value="glm-4">glm-4</option>
-                        <option value="glm-4v">glm-4v</option>
-                        <option value="glm-3-turbo">glm-3-turbo</option>
-                        <option value="azure-gpt-35-turbo">azure-gpt-35-turbo</option>
-                        <option value="azure-gpt-4o">azure-gpt-4o</option>
-                        <option value="open-mixtral-8x22b">mixtral-8x22b</option>
-                        <option value="llama3-70b-8192-groq">llama3-70b-groq</option>
-                        <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-                        <option value="gpt-4-turbo">gpt-4-turbo</option>
+                        <option value="o1">o1</option>
+                        <option value="o3-mini">o3-mini</option>
                     </optgroup>
                     <optgroup label="Ollama 本地模型" id="ollama-models"></optgroup>
                 </select>
@@ -135,33 +117,36 @@
               </label>
             </div>
 
-            <div id="tools-div">
+            <!-- <div id="tools-div">
                 <label id="tools-label">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" class="icon-md">
                         <title>工具</title>
                         <path fill="currentColor" fill-rule="evenodd" d="M6.75 4.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5M2.5 6.75a4.25 4.25 0 1 1 8.5 0 4.25 4.25 0 0 1-8.5 0M17.25 4.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5M13 6.75a4.25 4.25 0 1 1 8.5 0 4.25 4.25 0 0 1-8.5 0M6.75 15a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5M2.5 17.25a4.25 4.25 0 1 1 8.5 0 4.25 4.25 0 0 1-8.5 0M17.25 15a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5M13 17.25a4.25 4.25 0 1 1 8.5 0 4.25 4.25 0 0 1-8.5 0" clip-rule="evenodd"></path>
                     </svg>
               </label>
-            </div>
+            </div> -->
               
             <div id="image-upload-div">
                 <input type="file" id="image-upload" style="display:none" accept="image/*" multiple>
                 <label for="image-upload" id="image-upload-label">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
-                        <title>上传文件</title>
-                        <path fill="currentColor" fill-rule="evenodd" d="M9 7a5 5 0 0 1 10 0v8a7 7 0 1 1-14 0V9a1 1 0 0 1 2 0v6a5 5 0 0 0 10 0V7a3 3 0 1 0-6 0v8a1 1 0 1 0 2 0V9a1 1 0 1 1 2 0v6a3 3 0 1 1-6 0z" clip-rule="evenodd"></path>
-                    </svg>
+                    <svg t="1740476350600" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2370" width="16" height="16">
+                        <path d="M576 928H192c-52.992 0-96-43.093333-96-96V192c0-52.992 43.093333-96 96-96h640c52.992 0 96 43.093333 96 96v384.064c0 17.706667-14.293333 32-32 32s-32-14.293333-32-32V192.021333c0-17.706667-14.4-32-32-32H192c-17.706667 0-32 14.378667-32 32v639.957334c0 17.706667 14.4 32 32 32h384c17.706667 0 32 14.314667 32 32 0 17.706667-14.293333 32.021333-32 32.021333zM128 693.312a32.064 32.064 0 0 1-22.613333-54.698667l159.402666-159.338666a95.786667 95.786667 0 0 1 110.72-17.984l173.589334 86.805333c12.309333 6.186667 27.093333 3.797333 36.8-5.994667l287.402666-287.445333a32.042667 32.042667 0 0 1 45.290667 45.312L631.210667 587.392a95.786667 95.786667 0 0 1-110.72 18.005333l-173.589334-86.826666a31.616 31.616 0 0 0-36.8 6.016l-159.509333 159.317333c-6.186667 6.314667-14.4 9.386667-22.592 9.386667z m320-277.376c-52.906667 0-96-43.093333-96-96s43.093333-96.021333 96-96.021333 96 43.093333 96 96-43.093333 96.021333-96 96.021333z m0-128c-17.6 0-32 14.378667-32 32 0 17.6 14.4 32 32 32s32-14.4 32-32c0-17.621333-14.4-32-32-32zM768 928c-17.706667 0-32-14.293333-32-32v-192.021333c0-17.706667 14.293333-32 32-32s32 14.293333 32 32v192c0 17.706667-14.293333 32.021333-32 32.021333z m128-128c-7.893333 0-15.701333-2.922667-21.909333-8.725333L768 691.669333l-106.090667 99.712a31.936 31.936 0 0 1-45.226666-1.408 31.957333 31.957333 0 0 1 1.408-45.205333l112.213333-105.386667A48.554667 48.554667 0 0 1 768 621.44c14.72 0 28.501333 6.613333 37.696 17.92l112.213333 105.386667A31.957333 31.957333 0 0 1 896 800z" fill="#111111" p-id="2371"></path>
+                    </svg>                
                 </label>
             </div>
 
             <div id="newChat-div">
                 <label id="newchat-label">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                         <title>新聊天</title>
                         <g transform="translate(-528 -216)">
                           <path fill="none" d="M0,0H24V24H0Z" transform="translate(528 216)"></path>
                           <path fill="#000000" d="M19.2.914v4.9a1.5,1.5,0,0,1-1.5,1.5H12.8a.914.914,0,1,1,0-1.829h3.392a7.768,7.768,0,1,0,.752,6.664.914.914,0,0,1,1.727.6,9.607,9.607,0,1,1-1.3-8.78V.914a.914.914,0,1,1,1.829,0Z" transform="translate(530.4 218.4)"></path>
                         </g>
+                    </svg> -->
+                    <svg t="1740370293763" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2354" width="16" height="16">
+                        <title>新聊天</title>
+                        <path d="M972.8 460.8c-30.72 0-51.2-20.48-51.2-51.2V153.6c0-30.72-20.48-51.2-51.2-51.2H153.6c-30.72 0-51.2 20.48-51.2 51.2v716.8c0 30.72 20.48 51.2 51.2 51.2h256c30.72 0 51.2 20.48 51.2 51.2s-20.48 51.2-51.2 51.2H102.4c-56.32 0-102.4-46.08-102.4-102.4V102.4C0 46.08 46.08 0 102.4 0h819.2c56.32 0 102.4 46.08 102.4 102.4v307.2c0 30.72-20.48 51.2-51.2 51.2z" fill="#2c2c2c" p-id="2355" data-spm-anchor-id="a313x.search_index.0.i0.64543a81AVt1xh" class="selected"></path><path d="M665.6 768h307.2c30.72 0 51.2 20.48 51.2 51.2s-20.48 51.2-51.2 51.2h-307.2c-30.72 0-51.2-20.48-51.2-51.2s20.48-51.2 51.2-51.2z m153.6-153.6c30.72 0 51.2 20.48 51.2 51.2v307.2c0 30.72-20.48 51.2-51.2 51.2s-51.2-20.48-51.2-51.2v-307.2c0-30.72 20.48-51.2 51.2-51.2z" fill="#2c2c2c" p-id="2356" data-spm-anchor-id="a313x.search_index.0.i1.64543a81AVt1xh" class="selected"></path>
                     </svg>
                 </label>
             </div>

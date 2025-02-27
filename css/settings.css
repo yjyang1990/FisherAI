@@ -1,7 +1,7 @@
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #111827;
-  color: white;
+  background-color: #ecfdf5;
+  color: black;
   margin: 0;
   padding: 0;
   display: flex;
@@ -15,14 +15,13 @@ body {
   height: 90%;
   display: flex;
   flex-direction: row;
-  background-color: #2D3748; /* 可以设置一个背景色区分容器和页面背景 */
+  background: linear-gradient(#ecfbf4,#b3e3bd);
   padding: 20px; /* 容器内边距 */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 可选，为容器添加阴影效果 */
 }
 
 .tab-list {
   width: 250px;
-  background-color: #1f2937;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   display: flex;
@@ -45,7 +44,7 @@ body {
 
 .my-extension-brand {
   font-size: 20px;
-  color: white;
+  color: black;
   margin-top: 10px;
 }
 
@@ -57,7 +56,7 @@ body {
   cursor: pointer;
   background: none;
   border: none;
-  color: white;
+  color: black;
   text-decoration: none;
   margin-bottom: 5px;
   justify-content: flex-start; 
@@ -65,7 +64,7 @@ body {
 }
 
 .tab-link:hover, .tab-link.active {
-  background-color: #374151;
+  background-color: #b3e3bd;
 }
 
 .tab-link svg {
@@ -92,8 +91,6 @@ body {
   flex-grow: 1;
   padding: 20px;
   display: none;
-  background-color: #1A202C; /* 深色背景，与边栏颜色一致 */
-  color: #CBD5E0; /* 提高对比度的文字颜色 */
   border-radius: 8px; /* 轻微的边框圆角 */
 }
 
@@ -112,7 +109,6 @@ body {
 }
 
 .tab-content li {
-  background-color: #2D3748; /* 为列表项添加背景色 */
   padding: 8px;
   margin-bottom: 5px;
   border-radius: 4px;
@@ -130,8 +126,7 @@ body {
 
 .save-button, .quicktrans-save-btn, .checkapi-button {
   padding: 8px 16px;
-  background-color: #4A5568;
-  color: white;
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -206,12 +201,12 @@ body {
   width: 24px;
   height: 24px;
   transition: transform 0.3s ease; 
-  fill: white;
+  fill: black;
 }
 
 .github-svg {
   fill: #333;
-  stroke: white;
+  stroke: black;
   width: 24px;
   height: 24px; 
 }
@@ -260,7 +255,7 @@ body {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: black;
   transition: 0.4s;
   border-radius: 50%;
 }

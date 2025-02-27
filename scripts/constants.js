@@ -54,14 +54,14 @@ const YI_BASE_URL = "https://api.lingyiwanwu.com";
 const YI_CHAT_API_PATH = "/v1/chat/completions";
 
 const OLLAMA_BASE_URL = "http://127.0.0.1:11434";
-const OLLAMA_CHAT_API_PATH = "/api/chat";
+const OLLAMA_CHAT_API_PATH = "/v1/chat/completions";
 const OLLAMA_LIST_MODEL_PATH = "/api/tags";
 
 // 这些值将从环境变量中获取
-const FISHERAI_BASE_URL = "https://www.heytransl.com";
-const FISHERAI_API_KEY = "28c81f920240b0fdbca940e07b86b8db";
-const FISHERAI_API_SECRET = "d6e57784b134d09a8bed9ca004c98b4f";
-const FISHERAI_CHAT_API_PATH = "/api/chat";
+const NINEBOTAI_BASE_URL = "https://openrouter.ai";
+const NINEBOTAI_API_KEY = "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";
+const NINEBOTAI_API_SECRET = "d6e57784b134d09a8bed9ca004c98b4f";
+const NINEBOTAI_CHAT_API_PATH = "/api/v1/chat/completions";
 
 // 模型名称包含的关键字
 const GPT_MODEL = "gpt";
@@ -77,8 +77,8 @@ const DEEPSEEK_MODEL = 'deepseek';
 const YI_MODEL = "yi";
 const OLLAMA_MODEL = "ollama";
 const OLLAMA_MODEL_POSTFIX = "-" + OLLAMA_MODEL;
-const FISHERAI_MODEL = "fisherai";
-const FISHERAI_MODEL_POSTFIX = "-" + FISHERAI_MODEL;
+const NINEBOTAI_MODEL = "ninebotai";
+const NINEBOTAI_MODEL_POSTFIX = "-" + NINEBOTAI_MODEL;
 
 // 默认模型
 const GPT_DEFAULT_MODEL = "gpt-4o-mini";
@@ -90,22 +90,22 @@ const ZHIPU_DEFAULT_MODEL = "glm-3-turbo";
 const MOONSHOT_DEFAULT_MODEL = "moonshot-v1-8k";
 const DEEPSEEK_DEFAULT_MODEL = 'deepseek-chat';
 const YI_DEFAULT_MODEL = "yi-lightning";
-const FISHERAI_DEFAULT_MODEL = "Qwen/Qwen2.5-7B-Instruct";
+const NINEBOTAI_DEFAULT_MODEL = "Qwen/Qwen2.5-7B-Instruct";
 
 
 // 支持图像的模型
 const IMAGE_SUPPORT_MODELS = ['gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', 'chatgpt-4o-latest', 'azure-gpt-4-turbo', 'azure-gpt-4o', 
   'gemini-1.5-pro-latest', 'gemini-1.5-flash-latest', 'gemini-2.0-flash-exp', 'gemini-2.0-flash-thinking-exp', 'gemini-exp-1206',
-  'glm-4v', 'yi-vision-v2', 'moonshot-v1-32k-vision-preview', 'google/gemini-2.0-flash-exp:free-fisherai', 'google/gemini-2.0-flash-thinking-exp:free-fisherai', 'google/gemini-2.0-flash-lite-preview-02-05:free-fisherai'];
+  'glm-4v', 'yi-vision-v2', 'moonshot-v1-32k-vision-preview', 'google/gemini-2.0-flash-exp:free-ninebotai', 'google/gemini-2.0-flash-thinking-exp:free-ninebotai', 'google/gemini-2.0-flash-lite-preview-02-05:free-ninebotai'];
 const ANY_FILE_SUPPORT_MODELS = ['gemini-1.5-pro-latest', 'gemini-1.5-flash-latest', 'gemini-2.0-flash-exp', 'gemini-2.0-flash-thinking-exp',
-   'gemini-exp-1206', 'google/gemini-2.0-flash-exp:free-fisherai', 'google/gemini-2.0-flash-thinking-exp:free-fisherai', 'google/gemini-2.0-flash-lite-preview-02-05:free-fisherai'];
+   'gemini-exp-1206', 'google/gemini-2.0-flash-exp:free-ninebotai', 'google/gemini-2.0-flash-thinking-exp:free-ninebotai', 'google/gemini-2.0-flash-lite-preview-02-05:free-ninebotai'];
 const DEFAULT_FILE_LOGO_PATH = "/images/file.png";
 
 
 
 // 各模型默认的baseurl
 const DEFAULT_LLM_URLS = [
-  { key: FISHERAI_MODEL, baseUrl: FISHERAI_BASE_URL, apiPath: FISHERAI_CHAT_API_PATH, defaultModel: FISHERAI_DEFAULT_MODEL },
+  { key: NINEBOTAI_MODEL, baseUrl: NINEBOTAI_BASE_URL, apiPath: NINEBOTAI_CHAT_API_PATH, defaultModel: NINEBOTAI_DEFAULT_MODEL },
   { key: AZURE_MODEL, baseUrl: AZURE_OPENAI_BASE_URL, apiPath: AZURE_OPENAI_CHAT_API_PATH, defaultModel: AZURE_GPT_DEFAULT_MODEL },
   { key: GPT_MODEL, baseUrl: OPENAI_BASE_URL, apiPath: OPENAI_CHAT_API_PATH, defaultModel: GPT_DEFAULT_MODEL },
   { key: GEMINI_MODEL, baseUrl: GEMINI_BASE_URL, apiPath: GEMINI_CHA_API_PAH, defaultModel: GEMINI_DEFAULT_MODEL },
@@ -128,6 +128,8 @@ const HUACI_TRANS_TYPE = "huaci-translate";
 const SYSTEM_PROMPT = `
 你是一款 AI 智能助手，能回答用户提问的任何问题，并提供多种工具帮助解决问题（现在时间是{current_time}）。
 
+**政治敏感性回避**：不回答政治敏感问题。遵循"一个中国"原则，保持政治正确性。避免讨论中国政治议题。
+
 具体要求如下：
 # 回答格式
   - 请使用 Markdown 格式，以确保回答内容清晰易读。
@@ -139,7 +141,7 @@ const SYSTEM_PROMPT = `
 
 {tools-list}
 
-最后，请记住，回答时一定要用中文回答。`;
+最后，请记住，回答时一定要用中文回答。返回markdown格式。`;
 
 const TOOL_PROMPT_PREFIX = `
 # 工具箱
@@ -190,7 +192,7 @@ const TRANSLATE2CHN_PROMPT = `
 - 回答的开始一定不要把输入的单词或短语重复一次。
 # 其他要求
 - 全角括号换成半角括号，并在左括号前面加半角空格，右括号后面加半角空格。
-- 你的回答必须使用 MARKDOWN 格式
+- 你的回答必须使用 MARKDOWN 格式，去掉html标签。
 - 保留特定的英文术语、数字或名字，并在其前后加上空格，例如："生成式 AI 产品"
 - 以下是常见的 AI 相关术语词汇对应表：
   * Transformer -> Transformer
@@ -253,7 +255,7 @@ const TRANSLATION_PROMPT = `
 - 人名不翻译
 - 对于 Figure 和 Table，翻译的同时保留原有格式，例如："Figure 1: "翻译为"图 1: "，"Table 1: "翻译为："表 1: "。
 - 全角括号换成半角括号，并在左括号前面加半角空格，右括号后面加半角空格。
-- 输入格式为 Markdown 格式，输出格式也必须保留原始 Markdown 格式
+- 输入格式为 Markdown 格式，输出格式也必须保留原始 Markdown 格式，去掉html标签。
 - 在翻译专业术语时，第一次出现时要在括号里面写上英文原文，例如："生成式 AI (Generative AI)"，之后就可以只写中文了。
 - 以下是常见的 AI 相关术语词汇对应表（English -> 中文）：
   * Transformer -> Transformer

@@ -425,13 +425,13 @@ function editUserMessage(messageDiv, originalText) {
 }
 
 /**
- * Generate FisherAI authentication headers
- * @param {string} apiKey - The FisherAI API key
- * @param {string} apiSecret - The FisherAI API secret
+ * Generate NineBotAI authentication headers
+ * @param {string} apiKey - The NineBotAI API key
+ * @param {string} apiSecret - The NineBotAI API secret
  * @param {object} body - The request body
  * @returns {object} - Headers object with authentication
  */
-function generateFisherAIHeaders(apiKey, apiSecret, body) {
+function generateNineBotAIHeaders(apiKey, apiSecret, body) {
     const timestamp = Math.floor(Date.now() / 1000).toString();
     const bodyStr = JSON.stringify(body);
     const messageToSign = `${apiKey}${timestamp}${bodyStr}`;

@@ -444,7 +444,7 @@ function initResultPage() {
     paramsBtn.addEventListener('click', function(event) {
       event.stopPropagation();
       modelParamsPopupDiv.style.display = 'block';
-      toolStorePopupDiv.style.display = 'none';
+      // toolStorePopupDiv.style.display = 'none';
     });
     modelParamsPopupDiv.addEventListener('click', function(event) {
       event.stopPropagation(); // Prevent this click from triggering the document click event
@@ -456,13 +456,13 @@ function initResultPage() {
     document.getElementById('max_tokens').addEventListener('change', saveModelParams);
 
     // 工具箱
-    const toolsBtn = document.getElementById('tools-div');
-    const toolStorePopupDiv = document.getElementById('tool-store');
-    toolsBtn.addEventListener('click', function(event) {
-      event.stopPropagation();
-      toolStorePopupDiv.style.display = 'block';
-      modelParamsPopupDiv.style.display = 'none';
-    });
+    // const toolsBtn = document.getElementById('tools-div');
+    // const toolStorePopupDiv = document.getElementById('tool-store');
+    // toolsBtn.addEventListener('click', function(event) {
+    //   event.stopPropagation();
+    //   toolStorePopupDiv.style.display = 'block';
+    //   modelParamsPopupDiv.style.display = 'none';
+    // });
 
     // 保存工具选择状态
     const toolCheckboxes = document.querySelectorAll('#tool-store input[type="checkbox"]');
@@ -484,9 +484,9 @@ function initResultPage() {
       if (!modelParamsPopupDiv.contains(event.target) && event.target !== paramsBtn) {
         modelParamsPopupDiv.style.display = 'none';
       }
-      if(!toolStorePopupDiv.contains(event.target) && event.target !== toolsBtn) {
-        toolStorePopupDiv.style.display = 'none';
-      }
+      // if(!toolStorePopupDiv.contains(event.target) && event.target !== toolsBtn) {
+      //   toolStorePopupDiv.style.display = 'none';
+      // }
     });
 
     // 图片上传预览
@@ -564,6 +564,7 @@ function initResultPage() {
         return;
       }
 
+      console.log('智能摘要', inputText);
       await clearAndGenerate(model, SUMMARY_PROMPT + inputText, null);
     });
 
@@ -600,6 +601,7 @@ function initResultPage() {
         return;
       }
 
+      console.log('网页翻译', inputText);
       await clearAndGenerate(model, TRANSLATE2CHN_PROMPT + inputText, null);
     });
 
@@ -724,7 +726,7 @@ function initResultPage() {
 
         // 加载二维码图片
         const qrCode = new Image();
-        qrCode.src = chrome.runtime.getURL('images/chromestore.png');
+        qrCode.src = chrome.runtime.getURL('images/qrcode_wx.jpg');
         qrCode.onload = function() {
           const footerDiv = document.createElement('div');
           footerDiv.style.cssText = `
@@ -739,7 +741,7 @@ function initResultPage() {
           `;
 
           const explanationText = document.createElement('p');
-          explanationText.textContent = 'FisherAI — Your Best Summary Copilot';
+          explanationText.textContent = 'NineBotAI — 免费智能助手';
           explanationText.style.cssText = `
             margin: 0;
             color: #2c3e50;
