@@ -63,9 +63,13 @@ let currentController = null;
 initChatHistory();
 
 function cancelRequest() {
-  if (currentController) {
-    currentController.abort();
-    currentController = null;
+  try {
+    if (currentController) {
+      currentController.abort();
+      currentController = null;
+    }
+  } catch(error) {
+    console.error('取消请求失败', error);
   }
 }
 
