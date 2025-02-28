@@ -218,8 +218,6 @@ async function chatWithLLM(model, inputText, base64Images, type) {
     result = await chatWithOpenAIFormat(baseUrl, apiKey, model, type);
   }
 
-  
-
   if(result.tools.length > 0) {
     while(result.tools.length > 0) {
       result = await parseFunctionCalling(result, baseUrl, apiKey, model, type);
@@ -421,8 +419,6 @@ async function chatWithOpenAIFormat(baseUrl, apiKey, modelName, type) {
   
 
   const params = createRequestParams(additionalHeaders, body);
-  console.log(baseUrl);
-  console.log(params);
 
   return await fetchAndHandleResponse(baseUrl, params, modelName, type);
 }
@@ -474,8 +470,6 @@ async function chatWithGemini(baseUrl, modelName, type) {
 
   const additionalHeaders = {};
   const params = createRequestParams(additionalHeaders, body);
-  console.log(baseUrl);
-  console.log(params);
 
   return await fetchAndHandleResponse(baseUrl, params, modelName, type);
 }
@@ -503,33 +497,22 @@ async function getModelParameters() {
  * @returns 
  */
 async function fetchAndHandleResponse(baseUrl, params, modelName, type) {
-  let result = { resultString: '', resultArray: [] };
-  try {
-    console.log(baseUrl, params);
-    const response = await fetch(baseUrl, params);
+  const response = await fetch(baseUrl, params);
 
-    // 清除超时定时器
-    clearTimeout(params.timeoutId);
+  // 清除超时定时器
+  clearTimeout(params.timeoutId);
 
-    console.log(response);
-    if (!response.ok) {
-      // 错误响应
-      const errorJson = await response.json();
-      console.error('Error response JSON:', errorJson);
-      throw new Error("错误信息：" + errorJson.error.message);
-    } 
-    
-    const result = await parseAndUpdateChatContent(response, modelName, type);
-    return result;
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      console.log('Fetch aborted...', completeText, '<<');
-      return result;
-    } else {
-      console.error(error.message);
-      throw new Error(error.message);
-    }
-  }
+  console.log(response);
+  if (!response.ok) {
+    // 错误响应
+    const errorJson = await response.json();
+    console.error('Error response JSON:', errorJson);
+    throw new Error("错误信息：" + errorJson.error.message);
+  } 
+  
+  const result = await parseAndUpdateChatContent(response, modelName, type);
+  return result;
+
 }
 
 /**
@@ -733,104 +716,109 @@ async function parseAndUpdateChatContent(response, modelName, type) {
     let completeText = '';
     let tools = [];
     let buffer = '';
-    try {
-      while (true) {
-        const { value, done } = await reader.read();
-        // console.log('done..', done);
-        if (done) break;
-  
-        // 处理接收到的数据
-        buffer += new TextDecoder().decode(value);
-        console.log('buffer...', buffer);
-        let position = 0;
-        while (position < buffer.length) {
-          let start = buffer.indexOf('{', position);
-          let end = buffer.indexOf('}\n', start);
-          if(end == -1) {
-            end = buffer.indexOf('}\r\n', start); // 这个主要用于处理gemini的返回
-          }
-      
-          if (start === -1 || end === -1) {
-            break;
-          }
-          
-          // 尝试解析找到的JSON对象
-          let jsonText = buffer.substring(start, end + 1);
-          try {
-            // console.log('jsonText...', jsonText);
-            const jsonData = JSON.parse(jsonText);
-            let content = '';
-            if(modelName.includes(GEMINI_MODEL) && !modelName.includes(NINEBOTAI_MODEL)) {
-              jsonData.candidates[0].content.parts.forEach(part => {
-                // 检查 content 字段
-                if(part.text !== undefined &&  part.text != null) {
-                  content += part.text;
-                }
+    while (true) {
+      const { value, done } = await reader.read();
+      // console.log('done..', done);
+      if (done) break;
 
-                // 检查 functionCall 字段
-                if(part.functionCall !== undefined) {
-                  const func = part.functionCall;
-                  tools.push({
-                    'id': generateUniqueId(),
-                    'name': func.name,
-                    'arguments': JSON.stringify(func.args)
-                  });
-                }
-              });
-            } else if(modelName.includes(OLLAMA_MODEL)) {
-              content = jsonData.message.content;
-            } else {
-              jsonData.choices.forEach(choice => {
-                const delta = choice.delta;
-
-                // 检查 content 字段
-                if (delta.content !== undefined && delta.content !== null) {
-                  content += delta.content;
-                }
-
-                // 检查 tool_calls 字段
-                if (delta.tool_calls !== undefined && Array.isArray(delta.tool_calls)) {
-                  delta.tool_calls.forEach(tool_call => {
-                    // console.log('tool_call:', tool_call);
-                    const func = tool_call.function;
-                    if (func) {
-                      const index = tool_call.index;
-                      if(tools.length < index+1) {
-                        tools.push({});
-                        tools[index]['id'] = tool_call.id;
-                        tools[index]['name'] = func.name;
-                        tools[index]['arguments'] = func.arguments;
-                      } else {
-                        tools[index]['arguments'] += func.arguments;
-                      }
-                    }
-                  });
-                }
-              })
-            }
-            completeText += content;
-            position = end + 1; // 更新位置，准备解析下一个对象
-          } catch (error) {
-            console.error('Failed to parse JSON:', error);
-            position = end + 1; // 解析失败，跳过这部分
-          }
+      // 处理接收到的数据
+      buffer += new TextDecoder().decode(value);
+      console.log('buffer...', buffer);
+      let position = 0;
+      while (position < buffer.length) {
+        let start = buffer.indexOf('{', position);
+        let end = buffer.indexOf('}\n', start);
+        if(end == -1) {
+          end = buffer.indexOf('}\r\n', start); // 这个主要用于处理gemini的返回
         }
-        // 移除已经解析的部分
-        buffer = buffer.substring(position);
+    
+        if (start === -1 || end === -1) {
+          break;
+        }
+        
+        // 尝试解析找到的JSON对象
+        let jsonText = buffer.substring(start, end + 1);
+        try {
+          const jsonData = JSON.parse(jsonText);
 
-        // generate
-        if(completeText.length > 0) {
-          updateChatContent(completeText, type);
+          if(jsonData.error){
+            console.log('error...', jsonData.error);
+            throw new Error();
+          }
+
+          let content = '';
+          if(modelName.includes(GEMINI_MODEL) && !modelName.includes(NINEBOTAI_MODEL)) {
+            jsonData.candidates[0].content.parts.forEach(part => {
+              // 检查 content 字段
+              if(part.text !== undefined &&  part.text != null) {
+                content += part.text;
+              }
+
+              // 检查 functionCall 字段
+              if(part.functionCall !== undefined) {
+                const func = part.functionCall;
+                tools.push({
+                  'id': generateUniqueId(),
+                  'name': func.name,
+                  'arguments': JSON.stringify(func.args)
+                });
+              }
+            });
+          // } else if(modelName.includes(OLLAMA_MODEL)) {
+          //   content = jsonData.message.content;
+          } else {
+            jsonData.choices.forEach(choice => {
+              const delta = choice.delta;
+
+              // 检查 content 字段
+              if (delta.content !== null || delta.reasoning !== null) {
+                content += delta.reasoning || '';
+                content += delta.content || '';
+              }
+
+              // 检查 tool_calls 字段
+              if (delta.tool_calls !== undefined && Array.isArray(delta.tool_calls)) {
+                delta.tool_calls.forEach(tool_call => {
+                  // console.log('tool_call:', tool_call);
+                  const func = tool_call.function;
+                  if (func) {
+                    const index = tool_call.index;
+                    if(tools.length < index+1) {
+                      tools.push({});
+                      tools[index]['id'] = tool_call.id;
+                      tools[index]['name'] = func.name;
+                      tools[index]['arguments'] = func.arguments;
+                    } else {
+                      tools[index]['arguments'] += func.arguments;
+                    }
+                  }
+                });
+              }
+            })
+          }
+          completeText += content;
+          position = end + 1; // 更新位置，准备解析下一个对象
+        } catch (error) {
+          if(error.name == 'Error') {
+            throw new Error('当前模型执行失败，请切换其他模型再试！');
+          }
+          console.error('Failed to parse JSON:', error);
+          position = end + 1; // 解析失败，跳过这部分
         }
       }
-    } catch(error) {
-      throw error;
-    } finally {
-      return {
-        completeText: completeText,
-        tools: tools
-      };
+      // 移除已经解析的部分
+      buffer = buffer.substring(position);
+
+      // generate
+      if(completeText.length > 0) {
+        updateChatContent(completeText, type);
+      }
     }
+
+    return {
+      completeText: completeText,
+      tools: tools
+    };
 }
 
 /**
@@ -884,6 +872,7 @@ function updateChatContent(completeText, type) {
     });
   }
 }
+
 
 
 async function callSerpAPI(query) {

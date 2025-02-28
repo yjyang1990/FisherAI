@@ -7,6 +7,7 @@ function extractContent(format) {
     const article = new Readability(document.cloneNode(true)).parse();
     const title = article.title;
     var content = article.content;
+    
     if(format === FORMAT_TEXT) {
         content = article.textContent;
     } else {
@@ -17,10 +18,29 @@ function extractContent(format) {
         // 获取 readability-page-1 div 的内部内容
         const readabilityDiv = tempDiv.querySelector('#readability-page-1');
         if (readabilityDiv && readabilityDiv.firstElementChild) {
-            content = readabilityDiv.firstElementChild.innerHTML;
+            // 使用浏览器端可用的turndown实现
+            try {
+                // 创建Turndown实例
+                const turndown = new TurndownService({
+                    headingStyle: 'atx',
+                    codeBlockStyle: 'fenced',
+                    bulletListMarker: '-'
+                });
+                
+                // 添加表格支持
+                turndown.use(window.turndownPluginGfm.gfm);
+                
+                content = turndown.turndown(
+                    readabilityDiv.firstElementChild.innerHTML
+                );
+            } catch (e) {
+                console.warn('Markdown转换失败，使用原始HTML', e);
+                content = readabilityDiv.firstElementChild.innerHTML;
+            }
         }
     }
-    const result = title + "\n\n" + content;
+    const result = "# " + title + "\n\n" + content;
+    console.log('result', result);
     return result;
 }
 

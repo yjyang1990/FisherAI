@@ -43,10 +43,13 @@
           "scripts/third/marked.min.js", 
           "scripts/third/pdf.worker.min.js", 
           "scripts/third/pdf.min.js", 
+          "scripts/third//turndown.js",
+          "scripts/third//turndown-plugin-gfm.js",
           "scripts/constants.js", 
           "scripts/utils.js", 
           "scripts/llm.js",
-          "scripts/content.js" ]
+          "scripts/content.js" 
+        ]
       }
     ],
     "web_accessible_resources": [
