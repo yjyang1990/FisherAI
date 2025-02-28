@@ -917,7 +917,7 @@ function isVideoUrl(url) {
 function displayErrorMessage(message) {
   hideRecommandContent();
   const contentDiv = document.querySelector('.chat-content');
-  contentDiv.innerHTML = `<div class="error-message">${message}<br/><br/>关注【NineBot AI】公众号，获取更多帮助<img src="images/qrcode_wx.jpg" width="240" alt="关注NineBot AI公众号，获取更多帮助" class="tab-icon"></div>`;
+  contentDiv.innerHTML = `<div class="error-message">${message}<br/><br/>关注【NineBot AI】公众号，获取更多帮助<img src="images/qrcode_wx.jpg" width="120" alt="关注NineBot AI公众号，获取更多帮助" class="tab-icon"></div>`;
 }
  
 

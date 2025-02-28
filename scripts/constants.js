@@ -58,7 +58,7 @@ const OLLAMA_CHAT_API_PATH = "/v1/chat/completions";
 const OLLAMA_LIST_MODEL_PATH = "/api/tags";
 
 // 这些值将从环境变量中获取
-const NINEBOTAI_BASE_URL = "https://openrouter.ai";
+const NINEBOTAI_BASE_URL = "https://open.yyjpaper.cn";
 const NINEBOTAI_API_KEY = "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";
 const NINEBOTAI_API_SECRET = "d6e57784b134d09a8bed9ca004c98b4f";
 const NINEBOTAI_CHAT_API_PATH = "/api/v1/chat/completions";
